@@ -1,0 +1,7 @@
+//Bana ansible kullanarak ubuntu ve centos grubundaki sunuculara aynı anda zehra meliha ve sabahat kullanıcılarını oluşturacak add-hock komutunu yazar mısınız?
+ansible ubuntu -b -m user -a "name=zehra state=present" && ansible ubuntu -b -m user -a "name=meliha state=present" && ansible ubuntu -b -m user -a "name=sabahat state=present"
+ansible centos -m user -a "name=zehra state=present" -b && ansible centos -m user -a "name=meliha state=present" -b && ansible centos -m user -a "name=sabahat state=present" -b
+
+//Bana bu kullanıcıları sudoers dosysanıda sudo kullanmaya yetkilendirecek ansible ad-hock komutunu da yazar mısınız?
+ansible ubuntu -m user -a "name=zehra state=present" -b && ansible ubuntu -m user -a "name=meliha state=present" -b && ansible ubuntu -m user -a "name=sabahat state=present" -b
+ansible centos -b -m lineinfile -a "dest=/etc/sudoers line='zehra ALL=(ALL) NOPASSWD: ALL' state=present" && ansible centos -b -m lineinfile -a "dest=/etc/sudoers line='meliha ALL=(ALL) NOPASSWD: ALL' state=present" && ansible centos -b -m lineinfile -a "dest=/etc/sudoers line='sabahat ALL=(ALL) NOPASSWD: ALL' state=present"
